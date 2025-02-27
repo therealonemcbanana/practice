@@ -3,15 +3,16 @@ package org.example;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.ResourceBundle;
 
-public class JDBCUtils {
-
-    private static final String URL = "jdbc:postgresql://localhost:5432/zoo";
-    private static final String USER = "postgres";
-    private static final String PASSWORD = "mcbanana";
+public class JDBCUtils {private static final ResourceBundle reader = ResourceBundle.getBundle("dbconfig");
 
     public static Connection getConnection() throws SQLException {
-        return DriverManager.getConnection(URL, USER, PASSWORD);
+        String url = reader.getString("db.url");
+        String user = reader.getString("db.username");
+        String password = reader.getString("db.password");
+
+        return DriverManager.getConnection(url, user, password);
     }
 
     public static void printSQLException(SQLException ex) {
