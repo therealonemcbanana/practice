@@ -38,20 +38,22 @@ CREATE TABLE IF NOT EXISTS public.employee
     salary INTEGER CHECK (salary >= 0) NOT NULL
 );
 
-CREATE TABLE IF NOT EXISTS public.feeding
+CREATE TABLE IF NOT EXISTS public.animal_food
 (
+    id SERIAL PRIMARY KEY,
     food_id INTEGER NOT NULL,
     animal_id INTEGER NOT NULL,
-    PRIMARY KEY (food_id, animal_id),
+    UNIQUE (food_id, animal_id),
     FOREIGN KEY (food_id) REFERENCES public.food(id) ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY (animal_id) REFERENCES public.animal(id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
-CREATE TABLE IF NOT EXISTS public.care
+CREATE TABLE IF NOT EXISTS public.animal_employee
 (
+    id SERIAL PRIMARY KEY,
     animal_id INTEGER NOT NULL,
     employee_id INTEGER NOT NULL,
-    PRIMARY KEY (animal_id, employee_id),
+    UNIQUE (animal_id, employee_id),
     FOREIGN KEY (employee_id) REFERENCES public.employee(id) ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY (animal_id) REFERENCES public.animal(id) ON DELETE CASCADE ON UPDATE CASCADE
 );
