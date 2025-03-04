@@ -1,6 +1,6 @@
 package com.example.zoo.controller;
 
-import com.example.zoo.model.Animal;
+import com.example.zoo.dto.AnimalDTO;
 import com.example.zoo.service.AnimalService;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
@@ -18,24 +18,24 @@ public class AnimalController {
     private final AnimalService animalService;
 
     @GetMapping
-    public ResponseEntity<List<Animal>> getAnimals() {
-        List<Animal> animals = animalService.getAnimals();
-        return ResponseEntity.ok(animals);
+    public ResponseEntity<List<AnimalDTO>> getAnimals() {
+        List<AnimalDTO> animalsDTO = animalService.getAnimals();
+        return ResponseEntity.ok(animalsDTO);
     }
 
     @PostMapping
-    public ResponseEntity<Animal> createAnimal(@RequestBody @Valid Animal animal) {
-        Animal createdAnimal = animalService.createAnimal(animal);
-        return ResponseEntity.status(HttpStatus.CREATED).body(createdAnimal);
+    public ResponseEntity<AnimalDTO> createAnimal(@RequestBody @Valid AnimalDTO animalDTO) {
+        AnimalDTO createdAnimalDTO = animalService.createAnimal(animalDTO);
+        return ResponseEntity.status(HttpStatus.CREATED).body(createdAnimalDTO);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Animal> updateAnimal(
+    public ResponseEntity<AnimalDTO> updateAnimal(
             @PathVariable @Min(0) Integer id,
-            @RequestBody @Valid Animal animal
+            @RequestBody @Valid AnimalDTO animalDTO
     ) {
-        Animal updatedAnimal = animalService.updateAnimal(id, animal);
-        return ResponseEntity.ok(updatedAnimal);
+        AnimalDTO updatedAnimalDTO = animalService.updateAnimal(id, animalDTO);
+        return ResponseEntity.ok(updatedAnimalDTO);
     }
 
     @DeleteMapping("/{id}")

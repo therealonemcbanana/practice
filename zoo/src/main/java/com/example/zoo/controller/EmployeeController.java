@@ -1,6 +1,6 @@
 package com.example.zoo.controller;
 
-import com.example.zoo.model.Employee;
+import com.example.zoo.dto.EmployeeDTO;
 import com.example.zoo.service.EmployeeService;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
@@ -18,24 +18,24 @@ public class EmployeeController {
     private final EmployeeService employeeService;
 
     @GetMapping
-    public ResponseEntity<List<Employee>> getEmployees() {
-        List<Employee> employees = employeeService.getEmployees();
-        return ResponseEntity.ok(employees);
+    public ResponseEntity<List<EmployeeDTO>> getEmployees() {
+        List<EmployeeDTO> employeesDTO = employeeService.getEmployees();
+        return ResponseEntity.ok(employeesDTO);
     }
 
     @PostMapping
-    public ResponseEntity<Employee> createEmployee(@RequestBody @Valid Employee employee) {
-        Employee createdEmployee = employeeService.createEmployee(employee);
-        return ResponseEntity.status(HttpStatus.CREATED).body(createdEmployee);
+    public ResponseEntity<EmployeeDTO> createEmployee(@RequestBody @Valid EmployeeDTO employeeDTO) {
+        EmployeeDTO createdEmployeeDTO = employeeService.createEmployee(employeeDTO);
+        return ResponseEntity.status(HttpStatus.CREATED).body(createdEmployeeDTO);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Employee> updateEmployee(
+    public ResponseEntity<EmployeeDTO> updateEmployee(
             @PathVariable @Min(0) Integer id,
-            @RequestBody @Valid Employee employee
+            @RequestBody @Valid EmployeeDTO employeeDTO
     ) {
-        Employee updatedEmployee = employeeService.updateEmployee(id, employee);
-        return ResponseEntity.ok(updatedEmployee);
+        EmployeeDTO updatedEmployeeDTO = employeeService.updateEmployee(id, employeeDTO);
+        return ResponseEntity.ok(updatedEmployeeDTO);
     }
 
     @DeleteMapping("/{id}")

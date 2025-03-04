@@ -5,6 +5,8 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.PositiveOrZero;
 import lombok.*;
 
+import java.util.Set;
+
 @Entity
 @Getter
 @Setter
@@ -24,4 +26,7 @@ public class Food {
     @PositiveOrZero
     @Column(name = "amount")
     private int amount;
+
+    @ManyToMany(mappedBy = "foodSet")
+    Set<Animal> animals;
 }

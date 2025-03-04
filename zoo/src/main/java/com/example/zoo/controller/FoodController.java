@@ -1,6 +1,6 @@
 package com.example.zoo.controller;
 
-import com.example.zoo.model.Food;
+import com.example.zoo.dto.FoodDTO;
 import com.example.zoo.service.FoodService;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
@@ -18,21 +18,21 @@ public class FoodController {
     private final FoodService foodService;
 
     @GetMapping
-    public ResponseEntity<List<Food>> getFood() {
-        List<Food> food = foodService.getFood();
-        return ResponseEntity.ok(food);
+    public ResponseEntity<List<FoodDTO>> getFood() {
+        List<FoodDTO> foodDTOList = foodService.getFood();
+        return ResponseEntity.ok(foodDTOList);
     }
 
     @PostMapping
-    public ResponseEntity<Food> createFood(@RequestBody @Valid Food food) {
-        Food createdFood = foodService.createFood(food);
-        return ResponseEntity.status(HttpStatus.CREATED).body(createdFood);
+    public ResponseEntity<FoodDTO> createFood(@RequestBody @Valid FoodDTO foodDTO) {
+        FoodDTO createdFoodDTO = foodService.createFood(foodDTO);
+        return ResponseEntity.status(HttpStatus.CREATED).body(createdFoodDTO);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Food> updateFood (@PathVariable @Min(0) Integer id, @RequestBody @Valid Food food) {
-        Food updatedFood = foodService.updateFood(id, food);
-        return ResponseEntity.ok(updatedFood);
+    public ResponseEntity<FoodDTO> updateFood (@PathVariable @Min(0) Integer id, @RequestBody @Valid FoodDTO foodDTO) {
+        FoodDTO updatedFoodDTO = foodService.updateFood(id, foodDTO);
+        return ResponseEntity.ok(updatedFoodDTO);
     }
 
     @DeleteMapping("/{id}")

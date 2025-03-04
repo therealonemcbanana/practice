@@ -1,5 +1,7 @@
 package com.example.zoo.service;
 
+import com.example.zoo.dto.EmployeeDTO;
+import com.example.zoo.mapper.EmployeeMapper;
 import com.example.zoo.model.Employee;
 import com.example.zoo.repository.EmployeeRepository;
 import lombok.RequiredArgsConstructor;
@@ -7,28 +9,38 @@ import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 public class EmployeeService {
     private final EmployeeRepository employeeRepository;
+    private final EmployeeMapper employeeMapper;
 
-    public List<Employee> getEmployees() {
-        return employeeRepository.findAll();
+    public List<EmployeeDTO> getEmployees() {
+        List<Employee> employees = employeeRepository.findAll();
+        return employees.stream()
+                .map(employeeMapper::toDTO)
+                .collect(Collectors.toList());
     }
 
-    public Employee createEmployee(Employee employee) {
-        return employeeRepository.save(employee);
+    public EmployeeDTO createEmployee(EmployeeDTO employeeDTO) {
+        Employee employee = employeeMapper.toEntity(employeeDTO);
+        Employee savedEmployee = employeeRepository.save(employee);
+        return employeeMapper.toDTO(savedEmployee);
     }
 
-    public Employee updateEmployee(Integer id, Employee employee) {
+    public EmployeeDTO updateEmployee(Integer id, EmployeeDTO employeeDTO) {
         Employee existingEmployee = employeeRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Employee not found with id: " + id));
 
+        Employee employee = employeeMapper.toEntity(employeeDTO);
         existingEmployee.setName(employee.getName());
         existingEmployee.setSalary(employee.getSalary());
+        existingEmployee.setAnimals(employee.getAnimals());
 
-        return employeeRepository.save(existingEmployee);
+        Employee savedEmployee = employeeRepository.save(employee);
+        return employeeMapper.toDTO(savedEmployee);
     }
 
     public void deleteEmployee(Integer id) {
