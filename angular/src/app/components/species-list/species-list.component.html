@@ -1,0 +1,29 @@
+<h2>Species List</h2>
+<table class="species-table">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Title</th>
+      <th>Description</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let species of speciesList">
+      <td>{{ species.id }}</td>
+      <td>{{ species.title }}</td>
+      <td>{{ species.description || 'N/A' }}</td>
+      <td class="actions">
+        <div class="action-buttons">
+          <button (click)="editSpecies(species.id)" class="edit-btn">Edit</button>
+          <button (click)="deleteSpecies(species.id)" class="delete-btn">Delete</button>
+        </div>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="actions-container">
+  <button (click)="addSpecies()" class="add-btn">Add Species</button>
+  <button type="button" (click)="goBack()" class="back-btn">Back</button>
+</div>

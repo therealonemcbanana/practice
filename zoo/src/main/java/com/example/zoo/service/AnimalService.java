@@ -24,6 +24,12 @@ public class AnimalService {
                 .collect(Collectors.toList());
     }
 
+    public AnimalDTO getAnimalById(Integer id) {
+        Animal animal = animalRepository.findById(id)
+            .orElseThrow(() -> new ResourceNotFoundException("Animal not found with id: " + id));
+        return animalMapper.toDTO(animal);
+    }
+
     public AnimalDTO createAnimal(AnimalDTO animalDTO) {
         Animal animal = animalMapper.toEntity(animalDTO);
         Animal savedAnimal = animalRepository.save(animal);
@@ -43,8 +49,8 @@ public class AnimalService {
         existingAnimal.setFoodSet(animal.getFoodSet());
         existingAnimal.setEmployees(animal.getEmployees());
 
-        Animal savedAnimal = animalRepository.save(existingAnimal);
-        return animalMapper.toDTO(savedAnimal);
+        Animal updatedAnimal = animalRepository.save(existingAnimal);
+        return animalMapper.toDTO(updatedAnimal);
     }
 
     public void deleteAnimal(Integer id) {

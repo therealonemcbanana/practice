@@ -23,6 +23,11 @@ public class SpeciesController {
         return ResponseEntity.ok(species);
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<Species> getSpeciesById(@PathVariable @Min(0) Integer id) {
+        return ResponseEntity.ok(speciesService.getSpeciesById(id));
+    }
+
     @PostMapping
     public ResponseEntity<Species> createSpecies(@RequestBody @Valid Species species) {
         Species createdSpecies = speciesService.createSpecies(species);

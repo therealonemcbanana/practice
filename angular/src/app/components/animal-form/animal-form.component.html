@@ -1,0 +1,65 @@
+<div class="animal-form-container">
+    <h2>{{ isEditMode ? 'Editing Animal' : 'Adding Animal' }}</h2>
+    <form [formGroup]="animalForm" (ngSubmit)="onSubmit()">
+      
+      <div class="form-field">
+        <label for="name">Name</label>
+        <input id="name" formControlName="name" required />
+        <div *ngIf="animalForm.get('name')?.invalid && animalForm.get('name')?.touched">
+          <small class="error">Name is required.</small>
+        </div>
+      </div>
+    
+      <div class="form-field">
+        <label for="gender">Gender</label>
+        <input id="gender" formControlName="gender" required />
+        <div *ngIf="animalForm.get('gender')?.invalid && animalForm.get('gender')?.touched">
+          <small class="error">Gender is required.</small>
+        </div>
+      </div>
+    
+      <div class="form-field">
+        <label for="age">Age</label>
+        <input id="age" formControlName="age" type="number" required />
+        <div *ngIf="animalForm.get('age')?.invalid && animalForm.get('age')?.touched">
+          <small class="error">Age is required.</small>
+        </div>
+      </div>
+    
+        <div class="form-field">
+            <label for="aviary">Aviary</label>
+            <select id="aviary" formControlName="aviary">
+            <option *ngFor="let aviary of aviaries" [ngValue]="aviary">{{ aviary.id }}</option>
+            </select>
+        </div>
+  
+        <div class="form-field">
+            <label for="species">Species</label>
+            <select id="species" formControlName="species">
+            <option *ngFor="let species of species" [ngValue]="species">{{ species.title }}</option>
+            </select>
+        </div>
+        
+        <div class="form-field">
+            <label for="foodSet">Food</label>
+            <select id="foodSet" formControlName="foodSet" multiple>
+            <option *ngFor="let food of foods" [ngValue]="food">{{ food.name }}</option>
+            </select>
+        </div>
+        
+        <div class="form-field">
+            <label for="employees">Employees</label>
+            <select id="employees" formControlName="employees" multiple>
+            <option *ngFor="let employee of employees" [ngValue]="employee">{{ employee.name }}</option>
+            </select>
+        </div>
+  
+      <div class="form-actions">
+        <button type="submit" [disabled]="animalForm.invalid">
+          {{ isEditMode ? 'Save' : 'Add' }}
+        </button>
+        <button type="button" (click)="goBack()" class="back-btn">Back</button> <!-- Back Button -->
+      </div>
+    </form>
+  </div>
+  

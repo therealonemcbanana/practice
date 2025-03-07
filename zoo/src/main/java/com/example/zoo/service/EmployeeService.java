@@ -24,6 +24,12 @@ public class EmployeeService {
                 .collect(Collectors.toList());
     }
 
+    public EmployeeDTO getEmployeeById(Integer id) {
+        Employee employee = employeeRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Animal not found with id: " + id));
+        return employeeMapper.toDTO(employee);
+    }
+
     public EmployeeDTO createEmployee(EmployeeDTO employeeDTO) {
         Employee employee = employeeMapper.toEntity(employeeDTO);
         Employee savedEmployee = employeeRepository.save(employee);
@@ -37,10 +43,9 @@ public class EmployeeService {
         Employee employee = employeeMapper.toEntity(employeeDTO);
         existingEmployee.setName(employee.getName());
         existingEmployee.setSalary(employee.getSalary());
-        existingEmployee.setAnimals(employee.getAnimals());
 
-        Employee savedEmployee = employeeRepository.save(employee);
-        return employeeMapper.toDTO(savedEmployee);
+        Employee updatedEmployee = employeeRepository.save(existingEmployee);
+        return employeeMapper.toDTO(updatedEmployee);
     }
 
     public void deleteEmployee(Integer id) {

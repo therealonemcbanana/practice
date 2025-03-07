@@ -23,6 +23,11 @@ public class AviaryController {
         return ResponseEntity.ok(aviaries);
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<Aviary> getAviaryById(@PathVariable @Min(0) Integer id) {
+        return ResponseEntity.ok(aviaryService.getAviaryById(id));
+    }
+
     @PostMapping
     public ResponseEntity<Aviary> createAviary(@RequestBody @Valid Aviary aviary) {
         Aviary createdAviary = aviaryService.createAviary(aviary);

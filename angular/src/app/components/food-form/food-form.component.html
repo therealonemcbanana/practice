@@ -1,0 +1,29 @@
+<div class="food-form-container">
+  <h2>{{ foodId ? 'Edit Food' : 'Add Food' }}</h2>
+  <form [formGroup]="foodForm" (ngSubmit)="onSubmit()">
+    
+    <div class="form-field">
+      <label for="name">Name</label>
+      <input id="name" formControlName="name" required />
+      <div *ngIf="foodForm.get('name')?.invalid && foodForm.get('name')?.touched">
+        <small class="error">Name is required.</small>
+      </div>
+    </div>
+    
+    <div class="form-field">
+      <label for="amount">Amount</label>
+      <input id="amount" formControlName="amount" type="number" required min="1" />
+      <div *ngIf="foodForm.get('amount')?.invalid && foodForm.get('amount')?.touched">
+        <small class="error" *ngIf="foodForm.get('amount')?.hasError('required')">Amount is required.</small>
+        <small class="error" *ngIf="foodForm.get('amount')?.hasError('min')">Amount must be at least 1.</small>
+      </div>
+    </div>
+    
+    <div class="form-actions">
+      <button type="submit" [disabled]="foodForm.invalid">
+        {{ foodId ? 'Save' : 'Add' }}
+      </button>
+      <button type="button" (click)="goBack()">Back</button>
+    </div>
+  </form>
+</div>

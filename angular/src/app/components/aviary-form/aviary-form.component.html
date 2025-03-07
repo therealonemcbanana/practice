@@ -1,0 +1,29 @@
+<div class="aviary-form-container">
+  <h2>{{ aviaryId ? 'Edit Aviary' : 'Add Aviary' }}</h2>
+  <form [formGroup]="aviaryForm" (ngSubmit)="onSubmit()">
+    
+    <div class="form-field">
+      <label for="size">Size</label>
+      <input id="size" formControlName="size" type="number" required min="1" />
+      <div *ngIf="aviaryForm.get('size')?.invalid && aviaryForm.get('size')?.touched">
+        <small class="error" *ngIf="aviaryForm.get('size')?.hasError('required')">Size is required.</small>
+        <small class="error" *ngIf="aviaryForm.get('size')?.hasError('min')">Size must be at least 1.</small>
+      </div>
+    </div>
+    
+    <div class="form-field">
+      <label for="state">State</label>
+      <input id="state" formControlName="state" required />
+      <div *ngIf="aviaryForm.get('state')?.invalid && aviaryForm.get('state')?.touched">
+        <small class="error">State is required.</small>
+      </div>
+    </div>
+    
+    <div class="form-actions">
+      <button type="submit" [disabled]="aviaryForm.invalid">
+        {{ aviaryId ? 'Save' : 'Add' }}
+      </button>
+      <button type="button" (click)="goBack()">Back</button>
+    </div>
+  </form>
+</div>

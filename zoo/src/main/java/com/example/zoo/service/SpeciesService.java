@@ -17,6 +17,11 @@ public class SpeciesService {
         return speciesRepository.findAll();
     }
 
+    public Species getSpeciesById(Integer id) {
+        return speciesRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Animal not found with id: " + id));
+    }
+
     public Species createSpecies(Species species) {
         return speciesRepository.save(species);
     }

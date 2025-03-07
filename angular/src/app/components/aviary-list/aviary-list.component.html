@@ -1,0 +1,30 @@
+
+<h2>Aviary List</h2>
+<table class="aviary-table">
+<thead>
+    <tr>
+    <th>ID</th>
+    <th>Size</th>
+    <th>State</th>
+    <th>Actions</th>
+    </tr>
+</thead>
+<tbody>
+    <tr *ngFor="let aviary of aviaries">
+    <td>{{ aviary.id }}</td>
+    <td>{{ aviary.size }}</td>
+    <td>{{ aviary.state }}</td>
+    <td class="actions">
+        <div class="action-buttons">
+        <button (click)="editAviary(aviary.id)" class="edit-btn">Edit</button>
+        <button (click)="deleteAviary(aviary.id)" class="delete-btn">Delete</button>
+        </div>
+    </td>
+    </tr>
+</tbody>
+</table>
+
+<div class="actions-container">
+<button (click)="addAviary()" class="add-btn">Add Aviary</button>
+<button type="button" (click)="goBack()" class="back-btn">Back</button>
+</div>

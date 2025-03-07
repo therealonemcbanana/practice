@@ -23,6 +23,11 @@ public class AnimalController {
         return ResponseEntity.ok(animalsDTO);
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<AnimalDTO> getAnimalById(@PathVariable @Min(0) Integer id) {
+        return ResponseEntity.ok(animalService.getAnimalById(id));
+    }
+
     @PostMapping
     public ResponseEntity<AnimalDTO> createAnimal(@RequestBody @Valid AnimalDTO animalDTO) {
         AnimalDTO createdAnimalDTO = animalService.createAnimal(animalDTO);

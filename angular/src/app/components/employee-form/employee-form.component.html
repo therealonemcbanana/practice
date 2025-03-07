@@ -1,0 +1,30 @@
+<div class="employee-form-container">
+    <h2>{{ employeeId ? 'Edit Employee' : 'Add Employee' }}</h2>
+    <form [formGroup]="employeeForm" (ngSubmit)="onSubmit()">
+      
+      <div class="form-field">
+        <label for="name">Name</label>
+        <input id="name" formControlName="name" required />
+        <div *ngIf="employeeForm.get('name')?.invalid && employeeForm.get('name')?.touched">
+          <small class="error">Name is required.</small>
+        </div>
+      </div>
+      
+      <div class="form-field">
+        <label for="salary">Salary</label>
+        <input id="salary" formControlName="salary" type="number" required min="0" />
+        <div *ngIf="employeeForm.get('salary')?.invalid && employeeForm.get('salary')?.touched">
+          <small class="error" *ngIf="employeeForm.get('salary')?.hasError('required')">Salary is required.</small>
+          <small class="error" *ngIf="employeeForm.get('salary')?.hasError('min')">Salary must be at least 0.</small>
+        </div>
+      </div>
+      
+      <div class="form-actions">
+        <button type="submit" [disabled]="employeeForm.invalid">
+          {{ employeeId ? 'Save' : 'Add' }}
+        </button>
+        <button type="button" (click)="goBack()">Back</button>
+      </div>
+    </form>
+  </div>
+  

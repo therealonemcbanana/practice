@@ -1,0 +1,27 @@
+<h2>Food List</h2>
+<table class="food-table">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Amount</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let food of foods">
+      <td>{{ food.name }}</td>
+      <td>{{ food.amount }}</td>
+      <td class="actions">
+        <div class="action-buttons">
+          <button (click)="editFood(food.id)" class="edit-btn">Edit</button>
+          <button (click)="deleteFood(food.id)" class="delete-btn">Delete</button>
+        </div>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="actions-container">
+  <button (click)="addFood()" class="add-btn">Add Food</button>
+  <button type="button" (click)="goBack()" class="back-btn">Back</button>
+</div>

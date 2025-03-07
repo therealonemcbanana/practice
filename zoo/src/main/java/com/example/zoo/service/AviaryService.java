@@ -17,6 +17,11 @@ public class AviaryService {
         return aviaryRepository.findAll();
     }
 
+    public Aviary getAviaryById(Integer id) {
+        return aviaryRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Animal not found with id: " + id));
+    }
+
     public Aviary createAviary(Aviary aviary) {
         return aviaryRepository.save(aviary);
     }

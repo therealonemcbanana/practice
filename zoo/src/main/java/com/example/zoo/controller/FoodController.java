@@ -23,6 +23,11 @@ public class FoodController {
         return ResponseEntity.ok(foodDTOList);
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<FoodDTO> getFoodById(@PathVariable @Min(0) Integer id) {
+        return ResponseEntity.ok(foodService.getFoodById(id));
+    }
+
     @PostMapping
     public ResponseEntity<FoodDTO> createFood(@RequestBody @Valid FoodDTO foodDTO) {
         FoodDTO createdFoodDTO = foodService.createFood(foodDTO);

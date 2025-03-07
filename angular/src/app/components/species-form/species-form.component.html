@@ -1,0 +1,28 @@
+<div class="species-form-container">
+  <h2>{{ speciesId ? 'Edit Species' : 'Add Species' }}</h2>
+  <form [formGroup]="speciesForm" (ngSubmit)="onSubmit()">
+    
+    <div class="form-field">
+      <label for="title">Title</label>
+      <input id="title" formControlName="title" required />
+      <div *ngIf="speciesForm.get('title')?.invalid && speciesForm.get('title')?.touched">
+        <small class="error">Title is required.</small>
+      </div>
+    </div>
+    
+    <div class="form-field">
+      <label for="description">Description</label>
+      <textarea id="description" formControlName="description"></textarea>
+      <div *ngIf="speciesForm.get('description')?.invalid && speciesForm.get('description')?.touched">
+        <small class="error">Description is required.</small>
+      </div>
+    </div>
+    
+    <div class="form-actions">
+      <button type="submit" [disabled]="speciesForm.invalid">
+        {{ speciesId ? 'Save' : 'Add' }}
+      </button>
+      <button type="button" (click)="goBack()">Back</button>
+    </div>
+  </form>
+</div>

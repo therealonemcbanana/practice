@@ -24,6 +24,12 @@ public class FoodService {
                 .collect(Collectors.toList());
     }
 
+    public FoodDTO getFoodById(Integer id) {
+        Food food = foodRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Animal not found with id: " + id));
+        return foodMapper.toDTO(food);
+    }
+
     public FoodDTO createFood(FoodDTO foodDTO) {
         Food food = foodMapper.toEntity(foodDTO);
         Food savedFood = foodRepository.save(food);
@@ -37,10 +43,9 @@ public class FoodService {
         Food food = foodMapper.toEntity(foodDTO);
         existingFood.setName(food.getName());
         existingFood.setAmount(food.getAmount());
-        existingFood.setAnimals(food.getAnimals());
 
-        Food savedFood = foodRepository.save(food);
-        return foodMapper.toDTO(savedFood);
+        Food updatedFood = foodRepository.save(existingFood);
+        return foodMapper.toDTO(updatedFood);
     }
 
     public void deleteFood(Integer id) {
