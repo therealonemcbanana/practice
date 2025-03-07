@@ -2,12 +2,13 @@ import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Food } from '../models/zoo.model';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class FoodService {
-  private apiUrl = 'http://localhost:8080/zoo/food'; 
+  private apiUrl = `${environment.baseServerUrl}/food`; 
 
   private http = inject(HttpClient);
 
