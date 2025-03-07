@@ -9,5 +9,5 @@ Sonarcloud: https://sonarcloud.io/project/overview?id=therealonemcbanana_practic
 |3|JSP|∞|10|
 |4|Spring|12|7|
 |5|React|∞||
-|6|Angular|∞||
+|6|Angular|∞|16|
 |*|Total|||
