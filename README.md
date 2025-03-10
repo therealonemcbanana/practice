@@ -8,6 +8,6 @@ Sonarcloud: https://sonarcloud.io/project/overview?id=therealonemcbanana_practic
 |2|JDBC|6|6|
 |3|JSP|∞|10|
 |4|Spring|12|7|
-|5|React|∞||
+|5|React|∞|4|
 |6|Angular|∞|16|
-|*|Total|||
+|*|Total||45|
